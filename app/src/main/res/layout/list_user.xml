@@ -13,8 +13,6 @@
     android:layout_marginBottom="10dp"
     >
 
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -39,8 +37,6 @@
             android:layout_height="60dp"
             android:src="@drawable/ic_launcher_background"
             />
-
-
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

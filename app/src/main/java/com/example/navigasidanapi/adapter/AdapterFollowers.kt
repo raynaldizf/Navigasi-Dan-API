@@ -25,6 +25,7 @@ class AdapterFollowers(var dataUser : List<ResponseUserFollowerItem>) : Recycler
     }
 
     fun setData(data : ArrayList<ResponseUserFollowerItem>){
+
         this.dataUser = data
     }
 

@@ -19,14 +19,19 @@ class FragmentAdapter(fragmentManager: FragmentManager,lifecycle: Lifecycle,priv
             0 -> {
                 val fragment = FollowerFragment()
                 fragment.arguments = data
-                fragment
+                return fragment
             }
             1 -> {
                 val fragment = FollowingFragment()
                 fragment.arguments = data
-                fragment
+                return fragment
             }
-            else -> throw IllegalArgumentException("Invalid position")
+            else -> {
+                val fragment = FollowerFragment()
+                fragment.arguments = data
+                return fragment
+            }
         }
     }
+
 }

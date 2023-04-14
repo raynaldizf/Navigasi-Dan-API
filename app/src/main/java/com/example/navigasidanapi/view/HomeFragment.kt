@@ -55,6 +55,7 @@ class HomeFragment : Fragment() {
         binding.searchboxUser.queryHint = "Search User Here"
         binding.searchboxUser.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String): Boolean {
+                binding.rvUser.visibility = View.GONE
                 setSearchUser(query)
                 return true
             }
@@ -78,6 +79,7 @@ class HomeFragment : Fragment() {
                 ) {
                     if (response.isSuccessful){
                         binding.progressBar.visibility = View.GONE
+                        binding.rvUser.visibility = View.VISIBLE
                         binding.rvUser.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                         binding.rvUser.adapter = AdapterUserSearch(response.body()!!.items)
                         Toast.makeText(context, "Load Data Success", Toast.LENGTH_LONG).show()
@@ -88,6 +90,7 @@ class HomeFragment : Fragment() {
 
                 override fun onFailure(call: Call<SearchUserResponse>, t: Throwable) {
                     binding.progressBar.visibility = View.VISIBLE
+                    binding.rvUser.visibility = View.GONE
                     Toast.makeText(context, "Something Wrong", Toast.LENGTH_LONG).show()
                 }
 

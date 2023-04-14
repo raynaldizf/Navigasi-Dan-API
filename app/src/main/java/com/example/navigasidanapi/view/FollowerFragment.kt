@@ -9,8 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.navigasidanapi.adapter.AdapterFollowers
+import com.example.navigasidanapi.adapter.AdapterFollowing
 import com.example.navigasidanapi.databinding.FragmentFollowerBinding
 import com.example.navigasidanapi.model.ResponseUserFollowerItem
+import com.example.navigasidanapi.model.ResponseUserFollowingItem
 import com.example.navigasidanapi.network.RetrofitClient
 import com.example.navigasidanapi.viewmodel.ViewModelUser
 import retrofit2.Call
@@ -20,7 +22,8 @@ import retrofit2.Response
 class FollowerFragment : Fragment() {
     lateinit var binding : FragmentFollowerBinding
     lateinit var adapter : AdapterFollowers
-
+    lateinit var _adapter : AdapterFollowers
+    lateinit var adapter_ : AdapterFollowing
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,12 +36,15 @@ class FollowerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.progressBar.visibility = View.VISIBLE
+        binding.rvUser.visibility = View.GONE
         val username = arguments?.getString("nama")
 
         val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ViewModelUser::class.java]
         viewModel.allLiveDataFollowers().observe(viewLifecycleOwner, {
-            adapter.setData(it as ArrayList<ResponseUserFollowerItem>)
+            setFollowerData(it as ArrayList<ResponseUserFollowerItem>)
+//            adapter.setData(it as ArrayList<ResponseUserFollowerItem>)
+//            adapter.notifyDataSetChanged()
         })
         adapter = AdapterFollowers(ArrayList())
        showData(username!!)
@@ -55,6 +61,7 @@ class FollowerFragment : Fragment() {
                 ) {
                     if (response.isSuccessful ){
                         binding.progressBar.visibility = View.GONE
+                        binding.rvUser.visibility = View.VISIBLE
                         binding.rvUser.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                         binding.rvUser.adapter = AdapterFollowers(response.body()!!)
                     }
@@ -62,8 +69,23 @@ class FollowerFragment : Fragment() {
 
                 override fun onFailure(call: Call<List<ResponseUserFollowerItem>>, t: Throwable) {
                     binding.progressBar.visibility = View.VISIBLE
+                    binding.rvUser.visibility = View.GONE
                     Toast.makeText(context, "Something Wrong", Toast.LENGTH_LONG).show()
                 }
             })
+    }
+
+    private fun setFollowerData(data : ArrayList<ResponseUserFollowerItem>){
+        _adapter.setData(data)
+        adapter.notifyDataSetChanged()
+    }
+    private fun setFollowingData(data : ArrayList<ResponseUserFollowingItem>){
+        adapter_.setData(data)
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.root.requestLayout()
     }
 }
