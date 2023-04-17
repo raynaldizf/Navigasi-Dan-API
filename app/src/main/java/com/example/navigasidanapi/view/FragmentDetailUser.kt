@@ -74,8 +74,8 @@ class FragmentDetailUser : Fragment() {
                 ) {
                     if (response.isSuccessful){
                         binding.progressBar.visibility = View.GONE
-                        binding.txtTwitter.text = response.body()?.twitterUsername.toString()
-                        binding.txtNama.text = response.body()?.login
+                        binding.txtTwitter.text = response.body()?.login
+                        binding.txtNama.text = response.body()?.name
                         Glide.with(requireContext())
                             .load(response.body()?.avatarUrl)
                             .into(binding.images)

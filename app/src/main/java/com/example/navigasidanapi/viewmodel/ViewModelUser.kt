@@ -1,5 +1,6 @@
 package com.example.navigasidanapi.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.navigasidanapi.model.Item
@@ -8,34 +9,32 @@ import com.example.navigasidanapi.model.ResponseUserFollowerItem
 import com.example.navigasidanapi.model.ResponseUserFollowingItem
 
 class ViewModelUser : ViewModel() {
-    private var getDataUser : MutableLiveData<List<ResponseDataUserItem>?>
-    private var getDataUserDetail : MutableLiveData<ResponseDataUserItem?>
-    private var getDataUserFollowers : MutableLiveData<List<ResponseUserFollowerItem>?>
-    private var getDataUserFollowing : MutableLiveData<List<ResponseUserFollowingItem>?>
-    private var getDataSearchUser : MutableLiveData<List<Item>?>
+    private val getDataUser = MutableLiveData<List<ResponseDataUserItem>>()
+    val _getDataUser :LiveData<List<ResponseDataUserItem>> = getDataUser
+
+    private val getDataUserFollowers = MutableLiveData<List<ResponseUserFollowerItem>>()
+    val _getDataUserFollowers : LiveData<List<ResponseUserFollowerItem>> = getDataUserFollowers
+
+    private val getDataUserFollowing = MutableLiveData<List<ResponseUserFollowingItem>>()
+    val _getDataUserFollowing : LiveData<List<ResponseUserFollowingItem>> = getDataUserFollowing
+
+    private val getDataSearchUser = MutableLiveData<List<Item>>()
+    val _getDataSearchUser : LiveData<List<Item>> = getDataSearchUser
 
 
-    init {
-        getDataUser = MutableLiveData()
-        getDataUserDetail = MutableLiveData()
-        getDataUserFollowers = MutableLiveData()
-        getDataUserFollowing = MutableLiveData()
-        getDataSearchUser = MutableLiveData()
+    fun allLiveData() : LiveData<List<ResponseDataUserItem>> {
+        return _getDataUser
     }
 
-    fun allLiveData() : MutableLiveData<List<ResponseDataUserItem>?>{
-        return getDataUser
+    fun allLiveDataFollowers() : LiveData<List<ResponseUserFollowerItem>> {
+        return _getDataUserFollowers
     }
 
-    fun allLiveDataFollowers() : MutableLiveData<List<ResponseUserFollowerItem>?>{
-        return getDataUserFollowers
+    fun allLiveDataFollowing() : LiveData<List<ResponseUserFollowingItem>> {
+        return _getDataUserFollowing
     }
 
-    fun allLiveDataFollowing() : MutableLiveData<List<ResponseUserFollowingItem>?>{
-        return getDataUserFollowing
-    }
-
-    fun allLiveDataSearchUser() : MutableLiveData<List<Item>?>{
-        return getDataSearchUser
+    fun allLiveDataSearchUser() : LiveData<List<Item>> {
+        return _getDataSearchUser
     }
 }
