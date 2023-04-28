@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -138,9 +139,23 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
+            android:layout_marginStart="19dp"
+            android:layout_marginEnd="19dp"
             android:layout_below="@id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="#5EA9E4"
+            app:srcCompat="@drawable/baseline_love_24"
+            android:layout_below="@id/images"
+            app:fabSize="normal"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp"
+            />
 
     </RelativeLayout>
 

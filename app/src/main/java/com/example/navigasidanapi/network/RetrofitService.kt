@@ -2,9 +2,7 @@ package com.example.navigasidanapi.network
 
 import com.example.navigasidanapi.model.*
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface RetrofitService {
     @GET("search/users")

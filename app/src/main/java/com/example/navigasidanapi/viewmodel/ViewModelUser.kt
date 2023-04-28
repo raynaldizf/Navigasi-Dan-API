@@ -3,10 +3,7 @@ package com.example.navigasidanapi.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.navigasidanapi.model.Item
-import com.example.navigasidanapi.model.ResponseDataUserItem
-import com.example.navigasidanapi.model.ResponseUserFollowerItem
-import com.example.navigasidanapi.model.ResponseUserFollowingItem
+import com.example.navigasidanapi.model.*
 
 class ViewModelUser : ViewModel() {
     private val getDataUser = MutableLiveData<List<ResponseDataUserItem>>()
@@ -14,6 +11,9 @@ class ViewModelUser : ViewModel() {
 
     private val getDataUserFollowers = MutableLiveData<List<ResponseUserFollowerItem>>()
     val _getDataUserFollowers : LiveData<List<ResponseUserFollowerItem>> = getDataUserFollowers
+
+    private val getUserDetail = MutableLiveData<UserDetailResponse>()
+    val _getUserDetail: LiveData<UserDetailResponse> = getUserDetail
 
     private val getDataUserFollowing = MutableLiveData<List<ResponseUserFollowingItem>>()
     val _getDataUserFollowing : LiveData<List<ResponseUserFollowingItem>> = getDataUserFollowing

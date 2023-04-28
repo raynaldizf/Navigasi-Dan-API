@@ -6,17 +6,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-//    private const val BASE_URL = "https://api.github.com/"
-
-//    val instance : RetrofitService by lazy {
-//        val service = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
-//            .baseUrl(BASE_URL)
-//            .build()
-//        service.create(RetrofitService::class.java)
-//    }
-
     private const val BASE_URL = "https://api.github.com/"
-    private const val TOKEN_API = "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"
+    private const val TOKEN_API = "TOKEN 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"
     private const val AUTH_TOKEN = "Authorization"
 
     fun getApiService(): RetrofitService {

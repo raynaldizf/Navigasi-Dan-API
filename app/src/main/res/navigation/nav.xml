@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -14,6 +14,12 @@
         <action
             android:id="@+id/action_homeFragment_to_fragmentDetailUser"
             app:destination="@id/fragmentDetailUser" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoritreFragment"
+            app:destination="@id/favoritreFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/followerFragment"
@@ -43,5 +49,45 @@
         <action
             android:id="@+id/action_fragmentDetailUser_to_followingFragment"
             app:destination="@id/followingFragment" />
+        <action
+            android:id="@+id/action_fragmentDetailUser_to_favoritreFragment"
+            app:destination="@id/favoritreFragment" />
+        <action
+            android:id="@+id/action_fragmentDetailUser_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.navigasidanapi.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.example.navigasidanapi.view.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritreFragment"
+        android:name="com.example.navigasidanapi.view.FavoritreFragment"
+        android:label="fragment_favoritre"
+        tools:layout="@layout/fragment_favoritre" >
+        <action
+            android:id="@+id/action_favoritreFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_favoritreFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_favoritreFragment_to_fragmentDetailUser"
+            app:destination="@id/fragmentDetailUser" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.navigasidanapi.view.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

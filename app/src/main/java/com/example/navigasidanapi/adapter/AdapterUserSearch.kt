@@ -28,6 +28,12 @@ class AdapterUserSearch(var dataUser : List<Item>) : RecyclerView.Adapter<Adapte
         holder.binding.card.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("nama", dataUser[position].login)
+            bundle.putString("gambar", dataUser[position].avatarUrl)
+            bundle.putString("url", dataUser[position].htmlUrl)
+            bundle.putString("id", dataUser[position].id.toString())
+            bundle.putString("followers", dataUser[position].followersUrl)
+            bundle.putString("following", dataUser[position].followingUrl)
+            bundle.putString("repos", dataUser[position].reposUrl)
 
             Navigation.findNavController(it).navigate(R.id.action_homeFragment_to_fragmentDetailUser, bundle)
         }
