@@ -2,7 +2,6 @@ package com.example.navigasidanapi.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.navigasidanapi.room.Favorite
 
 @Dao
 interface FavoriteDao {

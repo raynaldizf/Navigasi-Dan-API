@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
     private const val BASE_URL = "https://api.github.com/"
-    private const val TOKEN_API = "TOKEN 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"
+    private const val TOKEN_API = "TOKEN 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"
     private const val AUTH_TOKEN = "Authorization"
 
     fun getApiService(): RetrofitService {

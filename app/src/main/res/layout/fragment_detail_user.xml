@@ -27,7 +27,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white">
+                android:background="?attr/colorPrimary">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -40,6 +40,7 @@
                         android:contentDescription="BtnBack"
                         android:background="@android:color/transparent"
                         android:src="@drawable/baseline_arrow_back_24"
+
                         />
 
                     <TextView
@@ -49,7 +50,7 @@
                         android:layout_height="24dp"
                         android:text="Detail User"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorOnSecondary"
                         android:layout_toRightOf="@id/btnBack"
                         />
                 </RelativeLayout>
@@ -74,7 +75,7 @@
             android:layout_below="@id/images"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="26sp"
             android:textStyle="bold"
 
@@ -89,6 +90,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:textSize="16sp"
+            android:textColor="?attr/colorPrimaryVariant"
             android:textStyle="bold" />
 
         <TextView
@@ -98,7 +100,7 @@
             android:layout_marginTop="10dp"
             android:layout_below="@id/txtTwitter"
             android:layout_toLeftOf="@id/pembatas"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="16sp"
             android:textStyle="bold"
 
@@ -114,7 +116,6 @@
             android:layout_marginEnd="10dp"
             android:layout_below="@id/txtTwitter"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -125,7 +126,7 @@
             android:layout_marginTop="10dp"
             android:layout_below="@id/txtTwitter"
             android:layout_toRightOf="@id/pembatas"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -135,6 +136,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/pembatas"
+            app:tabTextColor="?attr/colorOnPrimary"
             />
 
         <androidx.viewpager2.widget.ViewPager2

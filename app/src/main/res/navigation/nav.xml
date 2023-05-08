@@ -17,9 +17,6 @@
         <action
             android:id="@+id/action_homeFragment_to_favoritreFragment"
             app:destination="@id/favoritreFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/followerFragment"
@@ -76,18 +73,10 @@
         android:label="fragment_favoritre"
         tools:layout="@layout/fragment_favoritre" >
         <action
-            android:id="@+id/action_favoritreFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
-        <action
             android:id="@+id/action_favoritreFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <action
             android:id="@+id/action_favoritreFragment_to_fragmentDetailUser"
             app:destination="@id/fragmentDetailUser" />
     </fragment>
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.navigasidanapi.view.SettingsFragment"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
 </navigation>

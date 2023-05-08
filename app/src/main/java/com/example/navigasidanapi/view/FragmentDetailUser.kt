@@ -42,7 +42,6 @@ class FragmentDetailUser : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-      //  (activity as AppCompatActivity).setSupportActionBar(toolbar_name)
 
         var nama = arguments?.getString("nama")
         var gambar = arguments?.getString("gambar")
@@ -63,18 +62,6 @@ class FragmentDetailUser : Fragment() {
         binding.btnBack.setOnClickListener{
             findNavController().navigateUp()
         }
-
-//        binding.btnFav.setOnClickListener {
-//            val item = User(nama, gambar!!, 1)
-//
-//            // Insert favorite item on a separate thread
-//            Thread {
-//                AppDatabase.getInstance(requireContext()).userDao().insert(item)
-//            }.start()
-//
-//            Toast.makeText(requireContext(), "Added to Favorites", Toast.LENGTH_SHORT).show()
-//        }
-
 
         val database = FavDatabase.getInstance(requireContext())
         val dao = database.favDao()
@@ -108,63 +95,8 @@ class FragmentDetailUser : Fragment() {
                         findNavController().navigate(R.id.action_fragmentDetailUser_to_favoritreFragment)
                     }
                 }
-//
-//                if (isFavorited == 0){
-//                    val item = Favorite(nama, gambar!!, 1)
-//                    FavDatabase.getInstance(requireContext()).favDao().insertFavs(item)
-//                    binding.btnFav.setImageResource(R.drawable.baseline_love_24)
-//                    requireActivity().runOnUiThread{
-//                        Toast.makeText(requireContext(), "Added to Favorites", Toast.LENGTH_SHORT).show()
-//                    }
-//
-//                }else if (isFavorited == 1){
-//                    val item = Favorite(nama, gambar!!, 0)
-//                    FavDatabase.getInstance(requireContext()).favDao().deleteFavs(item)
-//                    binding.btnFav.setImageResource(R.drawable.baseline_love_24_outline)
-//                    requireActivity().runOnUiThread{
-//                        Toast.makeText(requireContext(), "Deleted from Favorites", Toast.LENGTH_SHORT).show()
-//                    }
-//
-//                }
             }.start()
-
-//            userVM._getUserDetail.observe(viewLifecycleOwner) {
-//                GlobalScope.async {
-//                    if (isFavorited == 1) {
-//                        val favorites = Favorite(nama, gambar!!,0)
-//                        favVM.deleteFav(favorites)
-//                        dao.deleteFavs(favorites)
-//
-//                        requireActivity().runOnUiThread {
-//                            Toast.makeText(context, "Favorite Deleted", Toast.LENGTH_SHORT).show()
-//                            Log.e("$favorites", "deleted from favorite")
-//                            binding.btnFav.setImageResource(R.drawable.baseline_love_24_outline)
-//                        }
-//                    }
-//                    else if (isFavorited == 0 || isFavorited == null) {
-//                        val datafav = Favorite(nama,gambar!!,1)
-//                        val favorites = dao.insertFavs(datafav)
-//                        favVM.saveFav(datafav)
-//
-//                        if (favorites != 0L) {
-//                            requireActivity().runOnUiThread {
-//                                Toast.makeText(
-//                                    context,
-//                                    "Favorite Added",
-//                                    Toast.LENGTH_SHORT
-//                                ).show()
-//                                Log.e("$favorites", "added to favorite")
-//                                binding.btnFav.setImageResource(R.drawable.baseline_love_24)
-//                            }
-//                        }
-//                        else Toast.makeText(context, "Failed added Favorite", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }
         }
-
-
-
     }
 
     private fun getData(userName : String){
@@ -184,21 +116,6 @@ class FragmentDetailUser : Fragment() {
                             .into(binding.images)
                         binding.txtFollower.text = "${response.body()?.followers} Follower"
                         binding.txtFollowing.text = "${response.body()?.following} Following"
-//
-//                        val database = AppDatabase.getInstance(requireContext())
-//                        val dao = database.userDao()
-//
-//                        var isFavorited : Int? = 0
-//
-//                        GlobalScope.launch(Dispatchers.IO) {
-//                            val isFavorited = AppDatabase.getInstance(requireContext()).userDao().isUserFavorited(response.body()?.name!!)
-//                            withContext(Dispatchers.Main) {
-//                                binding.btnFav.setImageResource(
-//                                    if (isFavorited == 1) R.drawable.baseline_love_24 else R.drawable.baseline_love_24_outline
-//                                )
-//                            }
-//                        }
-
                     }else{
                         binding.progressBar.visibility = View.VISIBLE
                         Toast.makeText(requireContext(), "Something Wrong", Toast.LENGTH_LONG).show()

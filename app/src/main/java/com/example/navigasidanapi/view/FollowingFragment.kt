@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.navigasidanapi.adapter.AdapterFollowers
 import com.example.navigasidanapi.adapter.AdapterFollowing
 import com.example.navigasidanapi.databinding.FragmentFollowingBinding
-import com.example.navigasidanapi.model.ResponseUserFollowerItem
 import com.example.navigasidanapi.model.ResponseUserFollowingItem
 import com.example.navigasidanapi.network.RetrofitClient
 import com.example.navigasidanapi.viewmodel.ViewModelUser
@@ -41,8 +40,6 @@ class FollowingFragment : Fragment() {
         val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ViewModelUser::class.java]
         viewModel.allLiveDataFollowing().observe(viewLifecycleOwner, {
             setFollowingData(it as ArrayList<ResponseUserFollowingItem>)
-//            adapter.setData(it as ArrayList<ResponseUserFollowingItem>)
-//            adapter.notifyDataSetChanged()
         })
         adapter = AdapterFollowing(ArrayList())
         showData(username!!)
@@ -72,10 +69,7 @@ class FollowingFragment : Fragment() {
                 }
             })
     }
-    private fun setFollowerData(data : ArrayList<ResponseUserFollowerItem>){
-        _adapter.setData(data)
-        adapter.notifyDataSetChanged()
-    }
+
     private fun setFollowingData(data : ArrayList<ResponseUserFollowingItem>){
         adapter_.setData(data)
         adapter.notifyDataSetChanged()

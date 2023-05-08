@@ -1,10 +1,15 @@
 package com.example.navigasidanapi.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -13,6 +18,9 @@ import com.example.navigasidanapi.R
 import com.example.navigasidanapi.adapter.AdapterUser
 import com.example.navigasidanapi.adapter.AdapterUserSearch
 import com.example.navigasidanapi.databinding.FragmentHomeBinding
+import com.example.navigasidanapi.datastore.PreferenceViewModel
+import com.example.navigasidanapi.datastore.SettingPreferences
+import com.example.navigasidanapi.datastore.ViewModelFactory
 import com.example.navigasidanapi.model.Item
 import com.example.navigasidanapi.model.ResponseDataUserItem
 import com.example.navigasidanapi.model.SearchUserResponse
@@ -26,7 +34,8 @@ class HomeFragment : Fragment() {
     lateinit var binding : FragmentHomeBinding
     lateinit var adapterUser : AdapterUser
     lateinit var adapterUserSearch: AdapterUserSearch
-
+    private val Context.dataStore: DataStore<androidx.datastore.preferences.core.Preferences> by preferencesDataStore(name = "settings")
+    private var darkmode = true
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +48,22 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val activity = requireActivity() as AppCompatActivity
+        val pref = SettingPreferences.getInstance(activity.dataStore)
+        val prefVM = ViewModelProvider(this, ViewModelFactory(pref))[PreferenceViewModel::class.java]
+
+        prefVM.getThemeSettings().observe(viewLifecycleOwner) { darkActive : Boolean ->
+            darkmode = if (!darkActive){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                true
+            }
+            else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                false
+            }
+        }
+
+
         var viewmodelUser = ViewModelProvider(this).get(ViewModelUser::class.java)
         viewmodelUser.allLiveData().observe(viewLifecycleOwner, {
             adapterUser.setData(it as ArrayList<ResponseDataUserItem>)
@@ -68,16 +93,18 @@ class HomeFragment : Fragment() {
 
         })
 
-        binding.btnSetting.setOnClickListener{
-            findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
+        binding.btnDarkMode.setOnClickListener{
+            val pref = SettingPreferences.getInstance(activity.dataStore)
+            val prefVM = ViewModelProvider(this, ViewModelFactory(pref))[PreferenceViewModel::class.java]
 
+            if(!darkmode) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            prefVM.saveThemeSetting(darkmode)
         }
 
         binding.btnLove.setOnClickListener{
             findNavController().navigate(R.id.action_homeFragment_to_favoritreFragment)
         }
-
-
     }
 
     private fun setSearchUser(query : String){
@@ -104,7 +131,6 @@ class HomeFragment : Fragment() {
                     binding.rvUser.visibility = View.GONE
                     Toast.makeText(context, "Something Wrong", Toast.LENGTH_LONG).show()
                 }
-
             })
     }
 
@@ -116,19 +142,25 @@ class HomeFragment : Fragment() {
                     call: Call<List<ResponseDataUserItem>>,
                     response: Response<List<ResponseDataUserItem>>
                 ) {
-                    if (response.isSuccessful){
+                    if (response != null && response.isSuccessful){
                         binding.progressBar.visibility = View.GONE
                         binding.rvUser.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                         binding.rvUser.adapter = AdapterUser(response.body()!!)
-                        Toast.makeText(context, "Load Data Success", Toast.LENGTH_LONG).show()
+                        if (isAdded()) {
+                            Toast.makeText(context, "Load Data Success", Toast.LENGTH_LONG).show()
+                        }
                     }else{
                         binding.progressBar.visibility = View.VISIBLE
-                        Toast.makeText(context, "Load Data Failed", Toast.LENGTH_LONG).show()
+                        if (isAdded()) {
+                            Toast.makeText(context, "Load Data Failed", Toast.LENGTH_LONG).show()
+                        }
                     }
                 }
 
                 override fun onFailure(call: Call<List<ResponseDataUserItem>>, t: Throwable) {
-                    Toast.makeText(context, "Something Wrong", Toast.LENGTH_LONG).show()
+                    if (isAdded()) {
+                        Toast.makeText(context, "Something Wrong", Toast.LENGTH_LONG).show()
+                    }
                 }
 
             })

@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.navigasidanapi.room.FavDatabase
 import com.example.navigasidanapi.R
 import com.example.navigasidanapi.adapter.AdapterFavorite
 import com.example.navigasidanapi.databinding.FragmentFavoritreBinding
+import com.example.navigasidanapi.room.FavDatabase
 
 class FavoritreFragment : Fragment() {
     private lateinit var binding: FragmentFavoritreBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,14 +27,10 @@ class FavoritreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.btnBack.setOnClickListener{
             findNavController().navigate(R.id.action_favoritreFragment_to_homeFragment)
         }
 
-        binding.btnSetting.setOnClickListener{
-            findNavController().navigate(R.id.action_favoritreFragment_to_settingsFragment)
-        }
         binding.rvUser.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val databaseFavorite = FavDatabase.getInstance(requireContext())
         val listFavorite = databaseFavorite.favDao().getFavorite()
